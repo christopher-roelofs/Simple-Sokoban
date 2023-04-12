@@ -1,0 +1,24 @@
+#
+# this Makefile compiles Simple Sokoban for Windows, using the Mingw64
+# crosscompilation toolkit on Linux.
+#
+# make -f Makefile.win
+#
+
+HTTP_BACKEND=curl
+WINDRES=x86_64-w64-mingw32-windres
+CC=x86_64-w64-mingw32-gcc
+
+CFLAGS = -O3 -Wall -Wextra -std=gnu89 -pedantic -Wno-long-long
+CLIBS = -lmingw32 -Dmain=SDL_main -lSDL2main -lSDL2 -lcurl -mwindows -Wl,--no-undefined -lm -ldinput8 -ldxguid -ldxerr8 -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 -lshell32 -lversion -luuid -static-libgcc -lws2_32 -l:libz.a
+
+all: simplesok.exe
+
+simplesok.exe: simplesok.o crc32.o data.o gra.o net-$(HTTP_BACKEND).o skin.o sok_core.o save.o gz.o simplesok.res
+	$(CC) simplesok.o crc32.o data.o gra.o net-$(HTTP_BACKEND).o skin.o sok_core.o save.o gz.o simplesok.res -o simplesok.exe $(CLIBS)
+
+simplesok.res: simplesok.rc
+	$(WINDRES) -i simplesok.rc --output-format coff -o simplesok.res
+
+clean:
+	rm -f simplesok.exe *.o

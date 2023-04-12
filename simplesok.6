@@ -1,0 +1,145 @@
+.TH "Simple Sokoban" 6 2020 "Mateusz Viste"
+
+.SH NAME
+.B simplesok
+\- Simple Sokoban
+
+.SH SYNOPSIS
+.B simplesok
+[\fI\,OPTION\/\fR]... [\fI\,FILE\/\fR]
+
+.SH DESCRIPTION
+.PP
+Simple Sokoban is a (simple) Sokoban game aimed at playability and
+portability across systems. It is written in ANSI C89, using the SDL2
+library for user interactions.
+
+.SS Features:
+.IP o 3
+nicely animated movements
+.IP o
+unlimited level solutions
+.IP o
+unlimited undos
+.IP o
+3 embedded level sets
+.IP o
+support for external *.xsb levels, possibly RLE compressed
+.IP o
+support for levels of size up to 62x62
+.IP o
+copying levels to clipboard
+.IP o
+save/load
+.IP o
+skins support
+
+.SS Loading external level files
+Simple Sokoban can load levels from external *.xsb files. There are two
+ways to load such file: either pass it as a parameter on command line,
+or drop the file to the Simple Sokoban application window. Note, that
+the second method will work only if your windowing system supports it.
+
+Simple Sokoban is also able to load gzipped xsb files.
+
+.SS Command line parameters
+Simple Sokoban accepts some command line parameters. If a parameter is
+not part of the known list of parameters, then Simple Sokoban assumes it
+is the path to a XSB level file.
+
+.TP
+.I \-\-framedelay=X
+Adjusts the delay between rendered frames to X µs. Use it
+if you'd like to make Simple Sokoban slower/faster. The
+default value is 10500. This value must be in the range
+0..64000.
+
+.TP
+.I \-\-framefreq=X
+Adjusts the frequency at which frames should be displayed.
+The default value is 15000, which means 'every 15000 µs'.
+This value must be in the range 1..1000000.
+
+.TP
+.I \-\-skin=file.bmp.gz
+Makes Simple Sokoban use a custom skin.
+
+.SS Skins support
+Simple Sokoban can use custom skins. It is distributed with a default
+skin, but one can load a different one through the --skin command line
+parameter.
+
+SimpleSok tries to load the user\-specified --skin file if provided, then
+it tries to load
+.BR /usr/share/simplesok/skins/antique3.bmp.gz.
+If these fail, then it falls back to a (somewhat crude) embedded skin.
+
+.SS Key bindings
+Simple Sokoban is thought to react to keyboard keys
+that are well\-known and seem intuitive. However, for the sake of
+documentation, the list of keys one can use is presented below:
+
+.RS
+.TS
+tab (@);
+l l l.
+Key@ @Action
+_
+T{
+F1
+T}@\-@display help@
+T{
+F2
+T}@\-@turn on/off graphical elements@
+T{
+F3
+T}@\-@dump the level to clipboard@
+T{
+F5/F7
+T}@\-@save/load game state@
+T{
+Backspace
+T}@\-@undo last move@
+T{
+R
+T}@\-@restart the ongoing level@
+T{
+S
+T}@\-@play the solution (if available)@
+T{
+CTRL+C
+T}@\-@copy current level state to clipboard@
+T{
+CTRL+V
+T}@\-@paste moves from clipboard@
+T{
+CTRL+UP/CTRL+DOWN
+T}@\-@zoom in/out@
+T{
+F11 or ALT+ENTER
+T}@\-@fullscreen on/off@
+.TE
+.RE
+
+
+.SH COPYRIGHT
+.PP
+Copyright © Mateusz Viste 2014-2022.
+
+.SH CREDITS
+
+Simple Sokoban has been written by Mateusz Viste. However, the project
+would not have been possible without the valuable work of other people:
+.IP o 3
+Hiroyuki Imabayashi \- The original creator of the Sokoban game
+.IP o
+Gerry Wiseman \- Created graphical elements adapted by Simple Sokoban
+.IP o
+David W. Skinner \- Designed the level sets embedded in Simple Sokoban
+.IP o
+Borgar Thorsteinsson \- Default embedded skin ("Yoshi")
+
+.SH AUTHOR
+.PP
+Manpage written by Friedhelm Mehnert.
+
